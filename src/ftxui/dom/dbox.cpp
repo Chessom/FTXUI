@@ -64,8 +64,12 @@ class DBox : public Node {
       for (int x = 0; x < width; ++x) {
         for (int y = 0; y < height; ++y) {
           auto& pixel = screen.PixelAt(x + box_.x_min, y + box_.y_min);
-          acc->background_color =
-              Color::Blend(acc->background_color, pixel.background_color);
+          if (pixel.character != " ") {
+            acc->background_color =
+                Color::Blend(acc->background_color, pixel.background_color);
+          } else {
+            acc->background_color = pixel.background_color;
+          }
           acc->automerge = pixel.automerge || acc->automerge;
           if (pixel.character == "") {
             acc->foreground_color =
