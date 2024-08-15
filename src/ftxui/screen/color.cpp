@@ -71,7 +71,11 @@ Color::Color() = default;
 
 /// @brief Build a transparent color.
 /// @ingroup screen
-Color::Color(Palette1 /*value*/) : Color() {}
+Color::Color(Palette1 value) : Color() {
+  if (value == Palette1::Opaque) {
+    alpha_ = 255;
+  }
+}
 
 /// @brief Build a color using the Palette16 colors.
 /// @ingroup screen

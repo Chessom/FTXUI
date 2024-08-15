@@ -1,4 +1,4 @@
-// Copyright 2020 Arthur Sonzogni. All rights reserved.
+﻿// Copyright 2020 Arthur Sonzogni. All rights reserved.
 // Use of this source code is governed by the MIT license that can be found in
 // the LICENSE file.
 #include <algorithm>  // for max
@@ -64,11 +64,11 @@ class DBox : public Node {
       for (int x = 0; x < width; ++x) {
         for (int y = 0; y < height; ++y) {
           auto& pixel = screen.PixelAt(x + box_.x_min, y + box_.y_min);
-          if (pixel.character != " ") {
+          if (pixel.background_color.IsOpaque()) {
+            acc->background_color = pixel.background_color;
+          } else {
             acc->background_color =
                 Color::Blend(acc->background_color, pixel.background_color);
-          } else {
-            acc->background_color = pixel.background_color;
           }
           acc->automerge = pixel.automerge || acc->automerge;
           if (pixel.character == "") {
